@@ -21,7 +21,7 @@ apptainer exec \
     cd pythia
     (
       . setup.sh
-      ./MuMuToZH "$N_EVENTS" "$SLURM_ARRAY_JOB_ID" "$SLURM_ARRAY_TASK_ID"
+      ./MuMuToZH MuMuToZH.conf "$N_EVENTS" "$SLURM_ARRAY_JOB_ID" "$SLURM_ARRAY_TASK_ID"
     )
     cd ..
 
