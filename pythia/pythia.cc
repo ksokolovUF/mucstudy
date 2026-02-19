@@ -19,11 +19,12 @@ int main(int argc, char* argv[]) {
     int nEvents = 10000;
     int jobID = 0;
     int taskID = 0;
-    if (argc < 5) {
-        std::cout << "Usage: " << argv[0] << " <pythia_config_file> <nEvents> <jobID> <taskID>" << std::endl;
+    std::string outDir = "";
+    if (argc < 6) {
+        std::cout << "Usage: " << argv[0] << " <pythia_config_file> <nEvents> <jobID> <taskID> <outDir>" << std::endl;
         exit(-1);
     }
-    if (argc >= 5) {
+    if (argc >= 6) {
         try {
             pythia.readFile(argv[1]);
 
@@ -45,13 +46,14 @@ int main(int argc, char* argv[]) {
                           << ". Using default 0 instead.\n";
                 taskID = 0;
             }
+	    outDir = argv[5];
         }
         catch (const std::exception& e) {
-            std::cout << "Usage: " << argv[0] << " <pythia_config_file> <nEvents> <jobID> <taskID>" << std::endl;
+            std::cout << "Usage: " << argv[0] << " <pythia_config_file> <nEvents> <jobID> <taskID> <outDir>" << std::endl;
             exit(-1);
         }
     } else {
-        std::cout << "Usage: " << argv[0] << " <pythia_config_file> <nEvents> <jobID> <taskID>" << std::endl;
+        std::cout << "Usage: " << argv[0] << " <pythia_config_file> <nEvents> <jobID> <taskID> <outDir>" << std::endl;
         exit(-1);
     }
     std::cout << "Generating " << nEvents << " events.\n";
@@ -74,7 +76,6 @@ int main(int argc, char* argv[]) {
 
     // HepMC3 output
     HepMC3::Pythia8ToHepMC3 toHepMC;
-    std::string outDir = "hepmc";
     std::filesystem::create_directories(outDir);
     std::filesystem::path cfgPath(argv[1]);
     std::string cfgTag = cfgPath.stem().string();  // filename without .conf
