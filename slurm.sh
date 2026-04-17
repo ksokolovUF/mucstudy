@@ -42,7 +42,7 @@ apptainer exec \
 
     mkdir -p "$ODIR/root"
     echo "CONVERTING SLCIO TO ROOT"
-    python slcio_to_root.py \
+    python hz/slcio_to_root.py \
       -i "$ODIR/slcio/MuMuToZH_reco_${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}.slcio" \
       -o "$ODIR/root/MuMuToZH_reco_${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}.root"
 EOF
